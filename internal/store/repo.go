@@ -1,7 +1,9 @@
 package store
 
+import "github.com/VladimirBlinov/AuthService/internal/authservice"
+
 type SessionRepo interface {
-	Create(Session) SessionID
-	Check(SessionID) Session
-	Delete(SessionID) Nothing
+	Create(*authservice.Session) (*authservice.SessionID, error)
+	Check(*authservice.SessionID) (*authservice.Session, error)
+	Delete(*authservice.SessionID) (*authservice.Nothing, error)
 }

@@ -1,6 +1,9 @@
 package inmem
 
-import "github.com/VladimirBlinov/AuthService/internal/store"
+import (
+	"github.com/VladimirBlinov/AuthService/internal/authservice"
+	"github.com/VladimirBlinov/AuthService/internal/store"
+)
 
 // Store
 type Store struct {
@@ -19,7 +22,7 @@ func (s *Store) Session() store.SessionRepo {
 
 	s.sessionRepo = &SessionRepo{
 		store:    s,
-		sessions: make(map[sessions.SessionID]*sessions.Session),
+		sessions: make(map[*authservice.SessionID]authservice.Session),
 	}
 	return s.sessionRepo
 }
