@@ -1,4 +1,4 @@
-module github.com/VladimirBlinov/AuthService.git
+module github.com/VladimirBlinov/AuthService
 
 go 1.18
 
