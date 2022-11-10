@@ -1,7 +1,7 @@
 package inmem
 
 import (
-	"github.com/VladimirBlinov/AuthService/internal/authservice"
+	"github.com/VladimirBlinov/AuthService/internal/model"
 	"github.com/VladimirBlinov/AuthService/internal/store"
 )
 
@@ -22,7 +22,7 @@ func (s *Store) Session() store.SessionRepo {
 
 	s.sessionRepo = &SessionRepo{
 		store:    s,
-		sessions: make(map[*authservice.SessionID]authservice.Session),
+		sessions: make(map[model.SessionID]*model.Session),
 	}
 	return s.sessionRepo
 }

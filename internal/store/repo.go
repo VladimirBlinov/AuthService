@@ -1,9 +1,12 @@
 package store
 
-import "github.com/VladimirBlinov/AuthService/internal/authservice"
+import (
+	"github.com/VladimirBlinov/AuthService/internal/authservice"
+	"github.com/VladimirBlinov/AuthService/internal/model"
+)
 
 type SessionRepo interface {
-	Create(*authservice.Session) (*authservice.SessionID, error)
-	Check(*authservice.SessionID) (*authservice.Session, error)
+	Create(*model.Session) (*model.SessionID, error)
+	Check(*model.SessionID) (*model.Session, error)
 	Delete(*authservice.SessionID) (*authservice.Nothing, error)
 }
