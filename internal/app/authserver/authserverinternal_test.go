@@ -33,8 +33,82 @@ func Test_ServerCheсk(t *testing.T) {
 	ctx := context.Background()
 	sid, _ := sm.Create(ctx, s)
 
-	sChecked, err := sm.Check(ctx, sid)
+	testCases := []struct {
+		name    string
+		sid     *authservice.SessionID
+		IsValid bool
+	}{
+		{
+			name:    "checked",
+			sid:     sid,
+			IsValid: true,
+		},
+		{
+			name: "not found",
+			sid: &authservice.SessionID{
+				ID: "new",
+			},
+			IsValid: false,
+		},
+	}
 
-	assert.NoError(t, err)
-	assert.Equal(t, s.UserID, sChecked.UserID)
+	for _, tc := range testCases {
+		t.Run(tc.name, func(t *testing.T) {
+			sChecked, err := sm.Check(ctx, tc.sid)
+			if tc.IsValid {
+				assert.NoError(t, err)
+				assert.Equal(t, s.UserID, sChecked.UserID)
+			} else {
+				assert.Error(t, err)
+				assert.Nil(t, sChecked)
+			}
+		})
+	}
+}
+
+func Test_ServerDelete(t *testing.T) {
+	store := inmem.New()
+	logger := logrus.New()
+
+	sm := NewSessionManager(authservice.UnimplementedAuthServiceServer{}, store, logger)
+	s := model.TestInputSession(t)
+	ctx := context.Background()
+	sid, _ := sm.Create(ctx, s)
+
+	testCases := []struct {
+		name      string
+		sid       *authservice.SessionID
+		IsDeleted bool
+	}{
+		{
+			name:      "deleted",
+			sid:       sid,
+			IsDeleted: true,
+		},
+		{
+			name: "not found",
+			sid: &authservice.SessionID{
+				ID: "new",
+			},
+			IsDeleted: false,
+		},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.name, func(t *testing.T) {
+			deleted, err := sm.Delete(ctx, tc.sid)
+			if tc.IsDeleted {
+				assert.NoError(t, err)
+				assert.True(t, deleted.Dummy)
+
+				sChecked, err := sm.Check(ctx, sid)
+				assert.Error(t, err)
+				assert.Nil(t, sChecked)
+			} else {
+				assert.Error(t, err)
+				assert.False(t, deleted.Dummy)
+			}
+		})
+	}
+
 }

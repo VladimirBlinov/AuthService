@@ -1,18 +1,23 @@
 package inmem
 
 import (
+	"sync"
+
 	"github.com/VladimirBlinov/AuthService/internal/model"
 	"github.com/VladimirBlinov/AuthService/internal/store"
 )
 
 // Store
 type Store struct {
+	mu          sync.RWMutex
 	sessionRepo *SessionRepo
 }
 
 // Store constructor
 func New() *Store {
-	return &Store{}
+	return &Store{
+		mu: sync.RWMutex{},
+	}
 }
 
 func (s *Store) Session() store.SessionRepo {
