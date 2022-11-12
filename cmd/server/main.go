@@ -6,8 +6,8 @@ import (
 	"net"
 
 	"github.com/VladimirBlinov/AuthService/internal/app/authserver"
-	"github.com/VladimirBlinov/AuthService/internal/authservice"
 	"github.com/VladimirBlinov/AuthService/internal/store/inmem"
+	"github.com/VladimirBlinov/AuthService/pkg/authservice"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 )

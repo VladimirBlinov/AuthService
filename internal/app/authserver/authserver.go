@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/VladimirBlinov/AuthService/internal/authservice"
 	"github.com/VladimirBlinov/AuthService/internal/model"
 	"github.com/VladimirBlinov/AuthService/internal/store"
+	"github.com/VladimirBlinov/AuthService/pkg/authservice"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"

@@ -4,9 +4,9 @@ import (
 	"context"
 	"testing"
 
-	"github.com/VladimirBlinov/AuthService/internal/authservice"
 	"github.com/VladimirBlinov/AuthService/internal/model"
 	"github.com/VladimirBlinov/AuthService/internal/store/inmem"
+	"github.com/VladimirBlinov/AuthService/pkg/authservice"
 	"github.com/sirupsen/logrus"
 	"github.com/stretchr/testify/assert"
 )

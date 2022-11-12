@@ -1,6 +1,6 @@
 package model
 
-import "github.com/VladimirBlinov/AuthService/internal/authservice"
+import "github.com/VladimirBlinov/AuthService/pkg/authservice"
 
 type Session struct {
 	UserID int

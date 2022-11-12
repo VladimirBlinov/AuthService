@@ -3,7 +3,7 @@ package model
 import (
 	"testing"
 
-	"github.com/VladimirBlinov/AuthService/internal/authservice"
+	"github.com/VladimirBlinov/AuthService/pkg/authservice"
 )
 
 func TestInputSession(t *testing.T) *authservice.Session {
