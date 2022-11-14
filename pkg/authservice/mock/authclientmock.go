@@ -1,4 +1,4 @@
-package authservice
+package mock
 
 import (
 	context "context"
