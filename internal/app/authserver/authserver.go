@@ -45,7 +45,7 @@ func (sm *SessionManager) Check(ctx context.Context, sID *authservice.SessionID)
 
 	session, err := sm.sessionStore.Session().Check(sessionID)
 	if err != nil {
-		sm.logger.Errorf("SM check error: %s", err)
+		sm.logger.Errorf("SM check: %s", err)
 		return nil, grpc.Errorf(codes.NotFound, fmt.Sprintf("SM check error: %s", err))
 	}
 
