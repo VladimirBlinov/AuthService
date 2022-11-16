@@ -21,7 +21,7 @@ func NewAuthServiceClientFake() *AuthServiceClientFake {
 	}
 }
 
-func (ascf *AuthServiceClientFake) Create(ctx context.Context, s *authservice.Session) (*authservice.SessionID, error) {
+func (ascf *AuthServiceClientFake) Create(ctx context.Context, s *authservice.Session, opts ...grpc.CallOption) (*authservice.SessionID, error) {
 	ascf.mu.Lock()
 	defer ascf.mu.Unlock()
 
@@ -33,7 +33,7 @@ func (ascf *AuthServiceClientFake) Create(ctx context.Context, s *authservice.Se
 	return sessionID, nil
 }
 
-func (ascf *AuthServiceClientFake) Check(ctx context.Context, sID *authservice.SessionID) (*authservice.Session, error) {
+func (ascf *AuthServiceClientFake) Check(ctx context.Context, sID *authservice.SessionID, opts ...grpc.CallOption) (*authservice.Session, error) {
 	s, ok := ascf.sessionStore[sID]
 	if !ok {
 		return nil, grpc.Errorf(codes.NotFound, "SM check: not found")
@@ -42,7 +42,7 @@ func (ascf *AuthServiceClientFake) Check(ctx context.Context, sID *authservice.S
 	return s, nil
 }
 
-func (ascf *AuthServiceClientFake) Delete(ctx context.Context, sID *authservice.SessionID) (*authservice.Nothing, error) {
+func (ascf *AuthServiceClientFake) Delete(ctx context.Context, sID *authservice.SessionID, opts ...grpc.CallOption) (*authservice.Nothing, error) {
 	_, ok := ascf.sessionStore[sID]
 	if !ok {
 		return &authservice.Nothing{
